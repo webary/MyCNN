@@ -1,0 +1,6 @@
+训练集文件及个数：D:/train_test/train0123.txt  500
+测试集文件及个数：D:/train_test/test0123.txt  1000
+F_CNN = 0.07,F_Matrix = 0.08
+
+代数: 		平均正确率: 	测试正确率: 
+1		0.194           0.24
