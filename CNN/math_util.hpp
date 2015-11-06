@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2015
+ * é—»æ³¢, webary, HBUT 
+ * reference ï¼šhttps://github.com/webary/MyCNN/
+ *             http://www.cnblogs.com/webary/
+ */
+ 
 #ifndef _MATH_UTIL_HPP_
 #define _MATH_UTIL_HPP_
 
@@ -10,23 +17,23 @@
 using namespace std;
 
 /**
- * ÊıÑ§º¯ÊıÍ¨ÓÃÀà
+ * æ•°å­¦æ“ä½œç±»å‡½æ•°é€šç”¨ç±»
 **/
 class Math_Util {
 public:
-	/* ÒÔÏÂÁ½¸öº¯Êı ·ÇÏßĞÔ£¬µ¥µ÷£¬ÎŞÏŞ´Î¿ÉÎ¢
-	 * |net|½ÏĞ¡Ê±£¨È¨Öµ½ÏĞ¡£©£¬¿É½üËÆÏßĞÔº¯Êı¡ª¡ª¸ßÔöÒæÇø´¦ÀíĞ¡ĞÅºÅ
-	 * |net|½Ï´óÊ±£¨È¨Öµ½Ï´ó£©£¬¿É½üËÆãĞÖµº¯Êı¡ª¡ªµÍÔöÒæÇø´¦Àí´óĞÅºÅ
+	/* ä»¥ä¸‹ä¸¤ä¸ªå‡½æ•° éçº¿æ€§ï¼Œå•è°ƒï¼Œæ— é™æ¬¡å¯å¾®
+	 * |net|è¾ƒå°æ—¶ï¼ˆæƒå€¼è¾ƒå°ï¼‰ï¼Œå¯è¿‘ä¼¼çº¿æ€§å‡½æ•°â€”â€”é«˜å¢ç›ŠåŒºå¤„ç†å°ä¿¡å·
+	 * |net|è¾ƒå¤§æ—¶ï¼ˆæƒå€¼è¾ƒå¤§ï¼‰ï¼Œå¯è¿‘ä¼¼é˜ˆå€¼å‡½æ•°â€”â€”ä½å¢ç›ŠåŒºå¤„ç†å¤§ä¿¡å·
 	 */
-	//sigmoidº¯Êı£¨SĞÍº¯Êı£¬Á¬Ğø¿ÉÎ¢£¬ÖµÓò(0£¬1)£©
+	//sigmoidå‡½æ•°ï¼ˆSå‹å‡½æ•°ï¼Œè¿ç»­å¯å¾®ï¼Œå€¼åŸŸ(0ï¼Œ1)ï¼‰
 	static double sigmoid(double x) {
 		return 1.0/(1.0+exp(-x));
 	}
-	//Ë«ÇúÕıÇĞSĞÍº¯Êı£¬Á¬Ğø¿ÉÎ¢£¬ÖµÓò(-1£¬1)£©
+	//åŒæ›²æ­£åˆ‡Så‹å‡½æ•°ï¼Œè¿ç»­å¯å¾®ï¼Œå€¼åŸŸ(-1ï¼Œ1)ï¼‰
 	static double tansig(double x) {
 		return 2 * sigmoid(x) - 1;
 	}
-	//½öÉèÖÃÒ»´ÎËæ»úÊıÖÖ×Ó
+	//ä»…è®¾ç½®ä¸€æ¬¡éšæœºæ•°ç§å­
 	static void setSrand() {
 		static bool first = 1;
 		if(first) {
@@ -34,15 +41,15 @@ public:
 			first = 0;
 		}
 	}
-	//²úÉúÒ»¸ö_minµ½_maxÖ®¼äµÄ¾ùÔÈ·Ö²¼µÄËæ»ú¸¡µãÊı
+	//äº§ç”Ÿä¸€ä¸ª_minåˆ°_maxä¹‹é—´çš„å‡åŒ€åˆ†å¸ƒçš„éšæœºæµ®ç‚¹æ•°
 	static float randFloat() {
 		return (float)rand() / RAND_MAX;
 	}
-	//²úÉúÒ»¸ö_minµ½_maxÖ®¼äµÄ¾ùÔÈ·Ö²¼µÄËæ»ú¸¡µãÊı
+	//äº§ç”Ÿä¸€ä¸ª_minåˆ°_maxä¹‹é—´çš„å‡åŒ€åˆ†å¸ƒçš„éšæœºæµ®ç‚¹æ•°
 	static float randFloat(double _min, double _max) {
 		return (float)(randFloat() * (_max - _min) + _min);
 	}
-	//²úÉúÒ»¸ö¾ùÖ¸ÎªE·½²îÎªDµÄ¸ßË¹·Ö²¼µÄËæ»ú¸¡µãÊı
+	//äº§ç”Ÿä¸€ä¸ªå‡æŒ‡ä¸ºEæ–¹å·®ä¸ºDçš„é«˜æ–¯åˆ†å¸ƒçš„éšæœºæµ®ç‚¹æ•°
 	static float randGauss(double E=0,double D=1) {
 		float V1, V2=0, S=1, X;
 		static bool phase = 0;
@@ -58,7 +65,7 @@ public:
 		phase = !phase;
 		return float(X * D + E);
 	}
-	//»ñÈ¡µ±Ç°Ê±¼ä,·µ»ØÎª×Ö·û´®
+	//è·å–å½“å‰æ—¶é—´,è¿”å›ä¸ºå­—ç¬¦ä¸²
 	static char* getTime(char* timeStr) {
 		time_t now_time=time(0);
 		struct tm *newtime=0;
@@ -66,7 +73,7 @@ public:
 		strftime(timeStr,10,"%H.%M.%S", newtime);
 		return timeStr;
 	}
-	//»ñÈ¡µ±Ç°ÈÕÆÚºÍÊ±¼ä,·µ»ØÎª×Ö·û´®
+	//è·å–å½“å‰æ—¥æœŸå’Œæ—¶é—´,è¿”å›ä¸ºå­—ç¬¦ä¸²
 	static string getDateTime(bool noDate=0, char format=':') {
 		char dt[20];
 		time_t now_time=time(0);
@@ -85,12 +92,12 @@ public:
 		}
 		return dt;
 	}
-	//ÅĞµÈÄ£°å
+	//åˆ¤ç­‰æ¨¡æ¿
 	template<class T1,class T2>
 	static bool myEqual(T1 a,T2 b) {
 		return (a-b)<1e-5 && (b-a)<1e-5;
 	}
-	//Ê¹Ò»¸ö±äÁ¿µÄÖµ¿ØÖÆÔÚÄ³¸ö·¶Î§ÄÚ
+	//ä½¿ä¸€ä¸ªå˜é‡çš„å€¼æ§åˆ¶åœ¨æŸä¸ªèŒƒå›´å†…
 	template<typename T1, typename T2, typename T3>
 	static void makeInRange(T1& var, T2 low, T3 high, bool edgeToRand=true) {
 		if(var<low)
@@ -98,12 +105,12 @@ public:
 		else if(var>high)
 			var = edgeToRand ? randFloat(low,high) : (T1)high;
 	}
-	//·µ»Ø¾ø¶ÔÖµ
+	//è¿”å›ç»å¯¹å€¼
 	template<typename T>
 	static T myAbs(T num) {
 		return num > 0 ? num : -num;
 	}
-	//×ª»¯Ä£°æ¡ª¡ª¡ª¡ª¹éÒ»»¯º¯Êı
+	//è½¬åŒ–æ¨¡ç‰ˆâ€”â€”â€”â€”å½’ä¸€åŒ–å‡½æ•°
 	template<class T1,class T2>
 	static T1 trans(T2 num,T2 max_T2,T1 stand) {
 		return  T1((double)num / max_T2 * stand + .5);
