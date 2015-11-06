@@ -1,18 +1,25 @@
+/*
+ * Copyright (c) 2015
+ * é—»æ³¢, webary, HBUT 
+ * reference ï¼šhttps://github.com/webary/MyCNN/
+ *             http://www.cnblogs.com/webary/
+ */
+ 
 #ifndef _WIN_UTIL_H_
 #define _WIN_UTIL_H_
 
 #include<windows.h>
-///ÒÔÏÂÊÇ¿ØÖÆÌ¨Êä³ö¸ñÊ½¿ØÖÆ²¿·Öºê¶¨Òå
-//ÉèÖÃÇ°¾°
+///ä»¥ä¸‹æ˜¯æŽ§åˆ¶å°è¾“å‡ºæ ¼å¼æŽ§åˆ¶éƒ¨åˆ†å®å®šä¹‰
+//è®¾ç½®å‰æ™¯
 #define FG_R	FOREGROUND_RED
 #define FG_G	FOREGROUND_GREEN
 #define FG_B	FOREGROUND_BLUE
-#define FG_HL	FOREGROUND_INTENSITY	//¸ßÁÁÏÔÊ¾
-//ÉèÖÃ±³¾°
+#define FG_HL	FOREGROUND_INTENSITY	//é«˜äº®æ˜¾ç¤º
+//è®¾ç½®èƒŒæ™¯
 #define BG_R	BACKGROUND_RED
 #define BG_G	BACKGROUND_GREEN
 #define BG_B	BACKGROUND_BLUE
-#define BG_HL	BACKGROUND_INTENSITY	//¸ßÁÁÏÔÊ¾
+#define BG_HL	BACKGROUND_INTENSITY	//é«˜äº®æ˜¾ç¤º
 
 #define SetText(attr) SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),attr)
 
@@ -21,7 +28,7 @@
 #define setWhite() SetText(FG_HL | FG_R | FG_G | FG_B)
 #define setDefault() SetText(FG_R | FG_G | FG_B)
 
-///ÉùÃ÷¶àÏß³Ìº¯ÊýÊ±ÐèÒªÓÃµ½µÄÒ»Ð©¶¨Òå¶àÏß³Ì
+///å£°æ˜Žå¤šçº¿ç¨‹å‡½æ•°æ—¶éœ€è¦ç”¨åˆ°çš„ä¸€äº›å®šä¹‰å¤šçº¿ç¨‹
 #ifdef __AFXWIN_H__
 #	define HAND AfxGetMainWnd()->m_hWnd
 #	define RETURN_TYPE UINT
@@ -32,7 +39,7 @@
 #	define RETURN_VALUE
 #endif
 
-///¶ÔvsÖÐµÄÒ»Ð©º¯Êý¼æÈÝ
+///å¯¹vsä¸­çš„ä¸€äº›å‡½æ•°å…¼å®¹
 #ifndef FILE_VS
 #	define FILE_VS
 #	ifdef _MSC_VER
