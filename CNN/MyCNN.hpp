@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2015
+ * é—»æ³¢, webary, HBUT 
+ * reference ï¼šhttps://github.com/webary/MyCNN/
+ * 	           http://www.cnblogs.com/webary/
+ */
+ 
 #pragma once
 #ifndef _MYCNN_HPP_
 #define _MYCNN_HPP_
@@ -7,46 +14,46 @@
 #include "Param.hpp"
 
 /**
-@usage:½«¾í»ıÍøÂç»ùÀàCNN_BaseÓë¾ØÕóÍøÂçÀàAda_ML½áºÏÆğÀ´¹¹ÔìÍêÕûµÄ¾í»ıÉñ¾­ÍøÂçÄ£ĞÍ
+@usage:å°†å·ç§¯ç½‘ç»œåŸºç±»CNN_Baseä¸çŸ©é˜µç½‘ç»œç±»Ada_MLç»“åˆèµ·æ¥æ„é€ å®Œæ•´çš„å·ç§¯ç¥ç»ç½‘ç»œæ¨¡å‹
 **/
 class MyCNN : public Ada_ML, public CNN_Base {
-	static const unsigned CNNPopSize = popSize;//¾í»ıÍøÂç¸öÌåÊı
-	static double F_CNN, F_Matrix;				//¾í»ıÍøÂçµÄ±äÒìÒò×Ó,¾ØÕóÍøÂçµÄ±äÒìÒò×Ó
-	uint bestPopIndex;							//×îºÃ¸öÌåµÄË÷Òı
+	static const unsigned CNNPopSize = popSize;//å·ç§¯ç½‘ç»œä¸ªä½“æ•°
+	static double F_CNN, F_Matrix;				//å·ç§¯ç½‘ç»œçš„å˜å¼‚å› å­,çŸ©é˜µç½‘ç»œçš„å˜å¼‚å› å­
+	uint bestPopIndex;							//æœ€å¥½ä¸ªä½“çš„ç´¢å¼•
 public:
-	//ÓÒ±ßÍøÂçµÄÊäÈëÓÉCNNµÄÊä³ö¾ö¶¨
+	//å³è¾¹ç½‘ç»œçš„è¾“å…¥ç”±CNNçš„è¾“å‡ºå†³å®š
 	MyCNN(uint modelNums = 1, uint _inputSize = 32, bool _mustEqual = 1);
 	virtual ~MyCNN();
-	//¿ªÊ¼¾í»ıÍøÂçÑ§Ï°£¬°ÑÆÕÍ¨Éñ¾­ÍøÂçµÄÑ§Ï°×÷ÎªÆäÖĞÒ»²¿·Ö
+	//å¼€å§‹å·ç§¯ç½‘ç»œå­¦ä¹ ï¼ŒæŠŠæ™®é€šç¥ç»ç½‘ç»œçš„å­¦ä¹ ä½œä¸ºå…¶ä¸­ä¸€éƒ¨åˆ†
 	void startCNNLearn(double permit_error = 8, cchar *readFromFile = 0);
-	//µÃµ½²âÊÔ¼¯µÄÊä³ö
+	//å¾—åˆ°æµ‹è¯•é›†çš„è¾“å‡º
 	void getTestOut();
-	//¶Ô±È²âÊÔ¼¯µÄÊä³öÕıÈ·ÂÊ---Ç°ÌáÊÇÒÑÖªÃ¿×é²âÊÔÊı¾İµÄÊä³ö
+	//å¯¹æ¯”æµ‹è¯•é›†çš„è¾“å‡ºæ­£ç¡®ç‡---å‰ææ˜¯å·²çŸ¥æ¯ç»„æµ‹è¯•æ•°æ®çš„è¾“å‡º
 	float compareTestOut();
-	//¸üĞÂ²ã---½ö½öÓÃÀ´²âÊÔÔËĞĞËÙ¶È
+	//æ›´æ–°å±‚---ä»…ä»…ç”¨æ¥æµ‹è¯•è¿è¡Œé€Ÿåº¦
 	void updateLayer()
 	{
 		for (uint j = 0; j < popSize; ++j) {
 			mutate(j);
-			updatePerLayer(cnnTrain[0].data, cnnPop[j]);	//¸üĞÂ¾í»ıÍøÂç
+			updatePerLayer(cnnTrain[0].data, cnnPop[j]);	//æ›´æ–°å·ç§¯ç½‘ç»œ
 		}
 	}
-	//±£´æ×îºÃ¸öÌåµÄ¾í»ıÍøÂç¿ÉÑµÁ·²ÎÊı
+	//ä¿å­˜æœ€å¥½ä¸ªä½“çš„å·ç§¯ç½‘ç»œå¯è®­ç»ƒå‚æ•°
 	void saveBestCnnPop(const char* file);
-	//±£´æ×îºÃ¸öÌåµÄ¾ØÕóÍøÂç²ÎÊı
+	//ä¿å­˜æœ€å¥½ä¸ªä½“çš„çŸ©é˜µç½‘ç»œå‚æ•°
 	void saveBestMatPop(const char* file);
-	//±£´æµ±Ç°ÖÖÈº×îºÃ¸öÌåµÄ¿ÉÑİ»¯²ÎÊıµ½ÎÄ¼şÖĞ
+	//ä¿å­˜å½“å‰ç§ç¾¤æœ€å¥½ä¸ªä½“çš„å¯æ¼”åŒ–å‚æ•°åˆ°æ–‡ä»¶ä¸­
 	void saveBestToFile(const char* file);
-	//´ÓÎÄ¼ş°ÑÔØÈë±¸·İºÃµÄÊı¾İ
+	//ä»æ–‡ä»¶æŠŠè½½å…¥å¤‡ä»½å¥½çš„æ•°æ®
 	void loadBestPop(cchar *filePath);
-	//¶ÔÕû¸ö¸öÌåÖ´ĞĞ±äÒì,°üÀ¨¾í»ıÍøÂç²¿·ÖºÍ¾ØÕóÍøÂç²¿·Ö;ÉèÖÃÎª¹«ÓĞÈÃ×ÓÏß³Ì¿É·ÃÎÊ
+	//å¯¹æ•´ä¸ªä¸ªä½“æ‰§è¡Œå˜å¼‚,åŒ…æ‹¬å·ç§¯ç½‘ç»œéƒ¨åˆ†å’ŒçŸ©é˜µç½‘ç»œéƒ¨åˆ†;è®¾ç½®ä¸ºå…¬æœ‰è®©å­çº¿ç¨‹å¯è®¿é—®
 	void mutate(uint index);
 protected:
-	//Ê¹ÓÃ¸ßË¹±äÒìºÍ¶àµã±äÒì¹¹ÔìĞÂĞÂ¸öÌå---mutateµÄÒ»ÖÖÊµÏÖ·½Ê½
+	//ä½¿ç”¨é«˜æ–¯å˜å¼‚å’Œå¤šç‚¹å˜å¼‚æ„é€ æ–°æ–°ä¸ªä½“---mutateçš„ä¸€ç§å®ç°æ–¹å¼
 	void mutateByGauss_MultiPoint(CNNIndividual& _cnnPop, Individual& _pop);
-	//´Ó¾í»ıÍøÂçµÃµ½Êä³ö×÷Îª¾ØÕóÍøÂçµÄÊäÈë,¼ÆËã¸öÌå_cnnPopÓë_pop½áºÏºóµÄÊÊÓ¦Öµ
+	//ä»å·ç§¯ç½‘ç»œå¾—åˆ°è¾“å‡ºä½œä¸ºçŸ©é˜µç½‘ç»œçš„è¾“å…¥,è®¡ç®—ä¸ªä½“_cnnPopä¸_popç»“åˆåçš„é€‚åº”å€¼
 	float getFitValue(CNNIndividual& _cnnPop, Individual& _pop);
-	//ÕÒµ½µ±Ç°×îºÃ¸öÌå
+	//æ‰¾åˆ°å½“å‰æœ€å¥½ä¸ªä½“
 	int findBest()
 	{
 		bestPopIndex = 0;
