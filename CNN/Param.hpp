@@ -2,7 +2,7 @@
  * Copyright (c) 2015
  * 闻波, webary, HBUT 
  * reference ：https://github.com/webary/MyCNN/
- * 			   http://www.cnblogs.com/webary/
+ *             http://www.cnblogs.com/webary/
  */
  
 #pragma once
