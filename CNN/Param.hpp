@@ -1,7 +1,10 @@
-/**
-	≤Œ ˝∂¡»°¿‡
-    @Author: Œ≈≤®(webary)
-**/
+/*
+ * Copyright (c) 2015
+ * ÈóªÊ≥¢, webary, HBUT 
+ * reference Ôºöhttps://github.com/webary/MyCNN/
+ * 			   http://www.cnblogs.com/webary/
+ */
+ 
 #pragma once
 #ifndef  _Param_HPP_
 #define  _Param_HPP_
@@ -12,23 +15,27 @@
 
 #define _STR(s) #s<<" = "
 #define _STR_STR(s) #s<<" = "<<s
+
+/**
+	ÂèÇÊï∞ËØªÂèñÁ±ª
+**/
 class Param{
 public:
 	static INI_Util ini;
-	static int  trainSetNum;	//—µ¡∑ºØ∏ˆ ˝
-	static int  testSetNum;		//≤‚ ‘ºØ∏ˆ ˝
-	static bool testHaveTag;	//≤‚ ‘ºØ ˝æ›÷–”–Œﬁ±Í«©
-	static char trainFile[128];	//—µ¡∑ºØŒƒº˛
-	static char testFile[128];	//≤‚ ‘ºØŒƒº˛
-	static bool enableTest;		//ø™∆Ù≤‚ ‘
-	static float F_CNN, F_Matrix;//æÌª˝Õ¯¬Á∫Õæÿ’ÛÕ¯¬Áµƒ±‰“Ï“Ú◊”
-	static int 	MaxGen;         //◊Ó¥Û—›ªØ¥˙ ˝
-	static bool multiThread;	//ø™∆Ù∂‡œﬂ≥Ã
-	static bool askLoadBak;		//—ØŒ ‘ÿ»Î±∏∑›Œƒº˛
-	static bool loadBakFile;	//‘ÿ»Î±∏∑›Œƒº˛,≤ª—ØŒ  ± π”√
-	static int outputNums;		// ‰≥ˆƒ£øÈ ˝ 
+	static int  trainSetNum;	//ËÆ≠ÁªÉÈõÜ‰∏™Êï∞
+	static int  testSetNum;		//ÊµãËØïÈõÜ‰∏™Êï∞
+	static bool testHaveTag;	//ÊµãËØïÈõÜÊï∞ÊçÆ‰∏≠ÊúâÊó†Ê†áÁ≠æ
+	static char trainFile[128];	//ËÆ≠ÁªÉÈõÜÊñá‰ª∂
+	static char testFile[128];	//ÊµãËØïÈõÜÊñá‰ª∂
+	static bool enableTest;		//ÂºÄÂêØÊµãËØï
+	static float F_CNN, F_Matrix;//Âç∑ÁßØÁΩëÁªúÂíåÁü©ÈòµÁΩëÁªúÁöÑÂèòÂºÇÂõ†Â≠ê
+	static int 	MaxGen;         //ÊúÄÂ§ßÊºîÂåñ‰ª£Êï∞
+	static bool multiThread;	//ÂºÄÂêØÂ§öÁ∫øÁ®ã
+	static bool askLoadBak;		//ËØ¢ÈóÆËΩΩÂÖ•Â§á‰ªΩÊñá‰ª∂
+	static bool loadBakFile;	//ËΩΩÂÖ•Â§á‰ªΩÊñá‰ª∂,‰∏çËØ¢ÈóÆÊó∂‰ΩøÁî®
+	static int outputNums;		//ËæìÂá∫Ê®°ÂùóÊï∞ 
 public:
-	//¥”iniŒƒº˛‘ÿ»Î≈‰÷√≤Œ ˝
+	//‰ªéiniÊñá‰ª∂ËΩΩÂÖ•ÈÖçÁΩÆÂèÇÊï∞
 	static void loadINI(const char *iniFileName="",const char *appName=""){
 		ini.loadINI(iniFileName);
 		if(appName!=0 && appName[0]!=0)
@@ -36,10 +43,10 @@ public:
 		if(ini.isNodeExist(ini.getDefaultNode())==0) {
 			writeINI();
 			char msg[128];
-			SPRINTF(msg,"Œ¥ºÏ≤‚µΩ’˝»∑µƒ≈‰÷√Œƒº˛≤Œ ˝!\n\n«Î’˝»∑…Ë÷√≈‰÷√Œƒº˛'%s'÷–µƒ[%s]Ω⁄µ„∏˜≤Œ ˝"
+			SPRINTF(msg,"Êú™Ê£ÄÊµãÂà∞Ê≠£Á°ÆÁöÑÈÖçÁΩÆÊñá‰ª∂ÂèÇÊï∞!\n\nËØ∑Ê≠£Á°ÆËÆæÁΩÆÈÖçÁΩÆÊñá‰ª∂'%s'‰∏≠ÁöÑ[%s]ËäÇÁÇπÂêÑÂèÇÊï∞"
 					,iniFileName,appName);
 			cout<<msg<<endl;
-			throw "Œ¥ºÏ≤‚µΩ’˝»∑µƒ≈‰÷√Œƒº˛≤Œ ˝!";
+			throw "Êú™Ê£ÄÊµãÂà∞Ê≠£Á°ÆÁöÑÈÖçÁΩÆÊñá‰ª∂ÂèÇÊï∞!";
 		}
 		trainSetNum = getInt("trainSetNum");
 		testSetNum = getInt("testSetNum");
@@ -55,7 +62,7 @@ public:
 		SPRINTF(testFile,"%s",ini.getRecord("testFile").c_str());
 		SPRINTF(trainFile,"%s",ini.getRecord("trainFile").c_str());
 	}
-	//Ω´≤Œ ˝±£¥ÊµΩiniŒƒº˛,µ±Œƒº˛≤ª¥Ê‘⁄ ±–¥»Îƒ¨»œ÷µ
+	//Â∞ÜÂèÇÊï∞‰øùÂ≠òÂà∞iniÊñá‰ª∂,ÂΩìÊñá‰ª∂‰∏çÂ≠òÂú®Êó∂ÂÜôÂÖ•ÈªòËÆ§ÂÄº
 	static void writeINI() {
 		ofstream write(ini.getLastFileName().c_str(),ios::out|ios::app);
 		if(write.is_open()) {
