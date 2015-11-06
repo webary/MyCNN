@@ -1,7 +1,10 @@
-/**
-	¶ÁÈ¡ÅäÖÃÎÄ¼şÀà
-    @Author: ÎÅ²¨(webary)
-**/
+/*
+ * Copyright (c) 2015
+ * é—»æ³¢, webary, HBUT 
+ * reference ï¼šhttps://github.com/webary/MyCNN/
+ * 	           http://www.cnblogs.com/webary/
+ */
+
 #pragma once
 #ifndef  _INI_Util_HPP_
 #define  _INI_Util_HPP_
@@ -11,20 +14,21 @@
 #include <iostream>
 using namespace std;
 
+//è¯»å–é…ç½®æ–‡ä»¶ç±»
 class INI_Util {
     typedef struct {
-        string key;		//¹Ø¼ü×Ö
-        string value;	//¼üÖµ
+        string key;		//å…³é”®å­—
+        string value;	//é”®å€¼
     } Record;
     typedef struct {
-        string node;		//½ÚµãÃû
-        vector<Record> r_set;	//¼ÇÂ¼¼¯ºÏ
+        string node;		//èŠ‚ç‚¹å
+        vector<Record> r_set;	//è®°å½•é›†åˆ
     } Group;
     vector<Group> conf;
 
-    string defaultNode;	//Ä¬ÈÏ²éÕÒ½Úµã
-    string state;		//ËÑË÷×´Ì¬,²éÕÒÊ§°ÜÊÇ´æ´¢Ê§°ÜÔ­Òò
-	string lastFileName;//ÉÏÒ»´ÎÔØÈëµÄÎÄ¼şÃû
+    string defaultNode;	//é»˜è®¤æŸ¥æ‰¾èŠ‚ç‚¹
+    string state;		//æœç´¢çŠ¶æ€,æŸ¥æ‰¾å¤±è´¥æ˜¯å­˜å‚¨å¤±è´¥åŸå› 
+	string lastFileName;//ä¸Šä¸€æ¬¡è½½å…¥çš„æ–‡ä»¶å
 
 public:
 #define For_each(it,vec) for(auto it=vec.begin();it<vec.end();++it)
@@ -43,7 +47,7 @@ public:
 			return;
 		ifstream readINI(lastFileName.c_str());
 		if (readINI.is_open()) {
-			//Çå³ıÒÔÇ°µÄĞÅÏ¢
+			//æ¸…é™¤ä»¥å‰çš„ä¿¡æ¯
 			For_each(it, conf)
 				it->r_set.clear();
 			conf.clear();
@@ -76,7 +80,7 @@ public:
 						break;
 					}
 				}
-				//µ±Ç°Êı¾İÃ»ÓĞ´æ´¢¸Ã×é
+				//å½“å‰æ•°æ®æ²¡æœ‰å­˜å‚¨è¯¥ç»„
 				if (!found) {
 					conf.push_back(group);
 					conf.rbegin()->r_set.push_back(record);
@@ -144,7 +148,7 @@ public:
 		return lastFileName;
 	}
 private:
-    //È¥³ıÊ×Î²µÄ¿Õ¸ñºÍ\t
+    //å»é™¤é¦–å°¾çš„ç©ºæ ¼å’Œ\t
     static const string& trim(string &s) {
         if(s.empty())
             return s;
