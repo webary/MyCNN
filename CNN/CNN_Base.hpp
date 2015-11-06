@@ -1,8 +1,14 @@
-/** ¾í»ıÍøÂç²¿·Ö¿ªÊ¼-->
-	7.16: ¼ÓÈë¶àÏß³Ì¼ÓËÙÔËËã;¼ÓÈë´ÓÅäÖÃÎÄ¼şÔØÈë²ÎÊı
-          ½«¾í»ıºË¹²ÏíÈ¥µô;½«CNNµÄS5×÷ÎªÓÒ±ßÍøÂçµÄÊäÈë
-	7.15: ¸ßË¹±äÒìÖĞ¼ÓÈë²½³¤;¼ÓÈë×Ô¶¯±¸·İºÍÔØÈë±¸·İµÄ¹¦ÄÜ
-**/
+/*
+ * Copyright (c) 2015
+ * é—»æ³¢, webary, HBUT 
+ * reference ï¼šhttps://github.com/webary/MyCNN/
+ * 	           http://www.cnblogs.com/webary/
+ *
+ * update history:
+ * 7.16: åŠ å…¥å¤šçº¿ç¨‹åŠ é€Ÿè¿ç®—;åŠ å…¥ä»é…ç½®æ–‡ä»¶è½½å…¥å‚æ•°
+ *       å°†å·ç§¯æ ¸å…±äº«å»æ‰;å°†CNNçš„S5ä½œä¸ºå³è¾¹ç½‘ç»œçš„è¾“å…¥
+ * 7.15: é«˜æ–¯å˜å¼‚ä¸­åŠ å…¥æ­¥é•¿;åŠ å…¥è‡ªåŠ¨å¤‡ä»½å’Œè½½å…¥å¤‡ä»½çš„åŠŸèƒ½
+ */
 
 #pragma once
 #ifndef _CNN_BASE_HPP_
@@ -21,85 +27,85 @@ typedef vector<vectorF> vectorF2D,kernelType;
 typedef vector<vector<unsigned> >  vectorU2D;
 typedef vector<vector<bool> >  vectorB2D;
 /**
-	¾í»ıÍøÂç»ùÀà£¬Ö»°üº¬¾í»ıÍøÂç²¿·ÖµÄÊôĞÔºÍ²Ù×÷
+	å·ç§¯ç½‘ç»œåŸºç±»ï¼ŒåªåŒ…å«å·ç§¯ç½‘ç»œéƒ¨åˆ†çš„å±æ€§å’Œæ“ä½œ
 **/
 class CNN_Base : public Math_Util{
 protected:
-    enum SS_Mode {SSM_Mean, SSM_Max, SSM_Min};	//ÑÇ²ÉÑùÄ£Ê½.subSample Mode
+    enum SS_Mode {SSM_Mean, SSM_Max, SSM_Min};	//äºšé‡‡æ ·æ¨¡å¼.subSample Mode
 
-    static const uint kernelNum 	= 75;//¾í»ıºË¸öÊı
-    static const uint kernelSize 	= 5;//¾í»ıºË´óĞ¡
-    static const uint subSampleSize = 2;//ÑÇ²ÉÑùºË´óĞ¡
-    static const float Max_kernel,Min_kernel, Max_bias,Min_bias;	//¾í»ıºËºÍÆ«ÖÃµÄ·¶Î§
-    //ÊäÈëÍ¼ÏñÔÊĞíµÄ´óĞ¡ÓÉ¾í»ıºË´óĞ¡ºÍÑÇ²ÉÑù´óĞ¡¾ö¶¨
+    static const uint kernelNum 	= 75;//å·ç§¯æ ¸ä¸ªæ•°
+    static const uint kernelSize 	= 5;//å·ç§¯æ ¸å¤§å°
+    static const uint subSampleSize = 2;//äºšé‡‡æ ·æ ¸å¤§å°
+    static const float Max_kernel,Min_kernel, Max_bias,Min_bias;	//å·ç§¯æ ¸å’Œåç½®çš„èŒƒå›´
+    //è¾“å…¥å›¾åƒå…è®¸çš„å¤§å°ç”±å·ç§¯æ ¸å¤§å°å’Œäºšé‡‡æ ·å¤§å°å†³å®š
     //static const uint inputSize = kernelSize*(subSampleSize*(subSampleSize+1)+1)-subSampleSize-1;
     uint inputSize;
-    static const uint CS_NUM[6];		//Ã¿²ãfeature MapÊı
-    vector<vectorF2D> C1,S2,C3,S4,C5,S6;//C1~S6²ã
+    static const uint CS_NUM[6];		//æ¯å±‚feature Mapæ•°
+    vector<vectorF2D> C1,S2,C3,S4,C5,S6;//C1~S6å±‚
     typedef struct {
-        vectorF2D data;					//¾í»ıÍøÂçµÄÊäÈëÍ¼Êı¾İ²¿·Ö
-        int tag;						//¾í»ıÍøÂçµÄÊäÈëÍ¼±êÇ©(Õæor¼Ù or ...)
-    } S_CNNInput;						//¾í»ıÍøÂçÊäÈëÀàĞÍ
-    vector<S_CNNInput> cnnTrain;		//¾í»ıÍøÂçÑµÁ·¼¯-°üº¬Èô¸ÉÍ¼ÏñµÄ»Ò¶ÈÊı¾İºÍ±êÇ©ĞÅÏ¢
-    vector<S_CNNInput> cnnTest;			//¾í»ıÍøÂç²âÊÔ¼¯-°üº¬Èô¸ÉÍ¼ÏñµÄ»Ò¶ÈÊı¾İ(Ò²¿É°üº¬±êÇ©ĞÅÏ¢)
+        vectorF2D data;					//å·ç§¯ç½‘ç»œçš„è¾“å…¥å›¾æ•°æ®éƒ¨åˆ†
+        int tag;						//å·ç§¯ç½‘ç»œçš„è¾“å…¥å›¾æ ‡ç­¾(çœŸorå‡ or ...)
+    } S_CNNInput;						//å·ç§¯ç½‘ç»œè¾“å…¥ç±»å‹
+    vector<S_CNNInput> cnnTrain;		//å·ç§¯ç½‘ç»œè®­ç»ƒé›†-åŒ…å«è‹¥å¹²å›¾åƒçš„ç°åº¦æ•°æ®å’Œæ ‡ç­¾ä¿¡æ¯
+    vector<S_CNNInput> cnnTest;			//å·ç§¯ç½‘ç»œæµ‹è¯•é›†-åŒ…å«è‹¥å¹²å›¾åƒçš„ç°åº¦æ•°æ®(ä¹Ÿå¯åŒ…å«æ ‡ç­¾ä¿¡æ¯)
     typedef struct {
-        kernelType c_kernel[kernelNum];	//¾í»ıºË
-        biasType bias;					//Æ«ÖÃ²ÎÊı
-        float stepInGuass[2];			//¸ßË¹±äÒìÖĞµÄ²½³¤(·Ö±ğ¿ØÖÆ¾í»ıºËºÍÆ«ÖÃ)
-        float fitValue;					//ÊÊÓ¦Öµ
-    } CNNIndividual;					//¶¨Òå¾í»ıÍøÂçÖĞµÄ¸öÌåÀàĞÍ,°üº¬ËùÓĞ¿ÉÑµÁ·²ÎÊıµÄ¼¯ºÏ¼´ÎªÒ»¸ö¸öÌå
-    vector<CNNIndividual> cnnPop;		//¾í»ıÍøÂç¸öÌå¼¯ºÏ
+        kernelType c_kernel[kernelNum];	//å·ç§¯æ ¸
+        biasType bias;					//åç½®å‚æ•°
+        float stepInGuass[2];			//é«˜æ–¯å˜å¼‚ä¸­çš„æ­¥é•¿(åˆ†åˆ«æ§åˆ¶å·ç§¯æ ¸å’Œåç½®)
+        float fitValue;					//é€‚åº”å€¼
+    } CNNIndividual;					//å®šä¹‰å·ç§¯ç½‘ç»œä¸­çš„ä¸ªä½“ç±»å‹,åŒ…å«æ‰€æœ‰å¯è®­ç»ƒå‚æ•°çš„é›†åˆå³ä¸ºä¸€ä¸ªä¸ªä½“
+    vector<CNNIndividual> cnnPop;		//å·ç§¯ç½‘ç»œä¸ªä½“é›†åˆ
 public:
     CNN_Base(uint _inputSize=32,uint _popSize=4);
     virtual ~CNN_Base();
-    //Ôö¼ÓĞÂµÄÊäÈëÍ¼
+    //å¢åŠ æ–°çš„è¾“å…¥å›¾
     void addTrain(const vectorF2D& grayData,int tag);
-    //´ÓÎÄ¼şÔØÈëÑµÁ·Êı¾İ
+    //ä»æ–‡ä»¶è½½å…¥è®­ç»ƒæ•°æ®
     void loadTrain(const char* file,int size=0);
-    //´ÓÎÄ¼şÔØÈë²âÊÔÊı¾İ
+    //ä»æ–‡ä»¶è½½å…¥æµ‹è¯•æ•°æ®
     void loadTest(const char* file,int size=0,bool haveTag=0);
-    //ÓÃinputData×÷ÎªÊäÈë¸üĞÂC1~S6Ã¿²ãfeature MapµÄÖµ
+    //ç”¨inputDataä½œä¸ºè¾“å…¥æ›´æ–°C1~S6æ¯å±‚feature Mapçš„å€¼
     void updatePerLayer(const vectorF2D& inputData, const CNNIndividual& indiv);
-    //µÃµ½CNNµÄ×îºóÒ»²ãµÄÊä³ö
+    //å¾—åˆ°CNNçš„æœ€åä¸€å±‚çš„è¾“å‡º
     template<typename T>
     void getCNNOut(T& output)
     {
         for(uint i=0; i<CS_NUM[4]; ++i)
             output[i] = C5[i][0][0];
     }
-    //¶Ô¿ÉÑµÁ·²ÎÊı(¾í»ıºËºÍÆ«ÖÃ)Ö´ĞĞ±äÒì
+    //å¯¹å¯è®­ç»ƒå‚æ•°(å·ç§¯æ ¸å’Œåç½®)æ‰§è¡Œå˜å¼‚
     virtual void kernelBiasMutate();
-    //½«¸÷²ãµÄÌØÕ÷Í¼´òÓ¡µ½ÎÄ¼şÖĞ
+    //å°†å„å±‚çš„ç‰¹å¾å›¾æ‰“å°åˆ°æ–‡ä»¶ä¸­
     void printCSToFile(const char* file);
-    //½«µ±Ç°×îºÃ¸öÌåµÄ¿ÉÑİ»¯²ÎÊı±£´æµ½ÎÄ¼şÖĞ
+    //å°†å½“å‰æœ€å¥½ä¸ªä½“çš„å¯æ¼”åŒ–å‚æ•°ä¿å­˜åˆ°æ–‡ä»¶ä¸­
     virtual void saveBestToFile(const char* file)=0;
 protected:
-	//ÔØÈëÊäÈëÊı¾İ£¬±»loadTrainºÍloadTestµ÷ÓÃ
+	//è½½å…¥è¾“å…¥æ•°æ®ï¼Œè¢«loadTrainå’ŒloadTestè°ƒç”¨
 	int loadInput(const char* file,int size,vector<S_CNNInput> &dataVec,bool haveTag);
-    //¹¹ÔìCS¸÷²ãµÄ²ÎÊıÏòÁ¿,²¢³õÊ¼»¯Ã¿¸ö¸öÌåµÄ¾í»ıºËºÍÆ«ÖÃ²ÎÊı
+    //æ„é€ CSå„å±‚çš„å‚æ•°å‘é‡,å¹¶åˆå§‹åŒ–æ¯ä¸ªä¸ªä½“çš„å·ç§¯æ ¸å’Œåç½®å‚æ•°
     void constructCS();
-    //¸üĞÂC3²ã,S2µ½C3µÄÓ³ÉäÓĞµã¸´ÔÓ,¶Ô²»Í¬µÄÇé¿öÏÂ¿ÉÄÜ»á±»ÖØĞ´.C3²ãÓĞCS_NUM[2](=10)¸öÌØÕ÷Í¼Map,
-    //È¡5~14ºÅ¾í»ıºËÓëS2²ãÏàÓ¦Map½øĞĞ¾í»ı...ÏÂÃæµÄ¼ÆËãÖ»ÊÊºÏS2ÓĞ5¸öMap,C3ÓĞ10¸öMapµÄÇé¿ö
+    //æ›´æ–°C3å±‚,S2åˆ°C3çš„æ˜ å°„æœ‰ç‚¹å¤æ‚,å¯¹ä¸åŒçš„æƒ…å†µä¸‹å¯èƒ½ä¼šè¢«é‡å†™.C3å±‚æœ‰CS_NUM[2](=10)ä¸ªç‰¹å¾å›¾Map,
+    //å–5~14å·å·ç§¯æ ¸ä¸S2å±‚ç›¸åº”Mapè¿›è¡Œå·ç§¯...ä¸‹é¢çš„è®¡ç®—åªé€‚åˆS2æœ‰5ä¸ªMap,C3æœ‰10ä¸ªMapçš„æƒ…å†µ
     void updateC3Layer(const kernelType* c_kernel,const biasType& bias);
-	//Í¨¹ıÈ«Á¬½ÓĞÎÊ½¸üĞÂC3²ã,Ã¿Ò»¸öC3²ãÍ¼¶ÔÃ¿Ò»¸öS2²ãµÄÍ¼¶¼ĞèÒªÒ»¸ö¾í»ıºË
+	//é€šè¿‡å…¨è¿æ¥å½¢å¼æ›´æ–°C3å±‚,æ¯ä¸€ä¸ªC3å±‚å›¾å¯¹æ¯ä¸€ä¸ªS2å±‚çš„å›¾éƒ½éœ€è¦ä¸€ä¸ªå·ç§¯æ ¸
 	void updateC3AllConnect(const kernelType* c_kernel,const biasType& bias);
-    //¸üĞÂC5²ã,C5²ãÓĞCS_NUM[4](=20)¸öÌØÕ÷Í¼Map,È¡0~20ºÅ¾í»ıºË·Ö±ğÓëS4²ãÃ¿¸öMap½øĞĞ¾í»ı,C5²ãÃ¿¸öMapÖ»ÓĞÒ»¸öÖµ
+    //æ›´æ–°C5å±‚,C5å±‚æœ‰CS_NUM[4](=20)ä¸ªç‰¹å¾å›¾Map,å–0~20å·å·ç§¯æ ¸åˆ†åˆ«ä¸S4å±‚æ¯ä¸ªMapè¿›è¡Œå·ç§¯,C5å±‚æ¯ä¸ªMapåªæœ‰ä¸€ä¸ªå€¼
     void updateC5Layer(const kernelType* c_kernel,const biasType& bias);
-    //¸üĞÂS6²ã,S6²ãÓĞCS_NUM[5](=11)¸öÌØÕ÷Í¼Map,S6ÖĞÃ¿¸öÊä³öµÄÌØÕ÷Öµ´ÓC5ÖĞËæ»úÈ¡Á½¸öMapÈ¡Æ«ÖÃÇóºÍµÃµ½
+    //æ›´æ–°S6å±‚,S6å±‚æœ‰CS_NUM[5](=11)ä¸ªç‰¹å¾å›¾Map,S6ä¸­æ¯ä¸ªè¾“å‡ºçš„ç‰¹å¾å€¼ä»C5ä¸­éšæœºå–ä¸¤ä¸ªMapå–åç½®æ±‚å’Œå¾—åˆ°
     void updateS6Layer(const biasType& bias);
-protected:	//¾²Ì¬±£»¤·½·¨
-    //°ÑoutÓëvec1Ïà¼Ó±£´æµ½output
+protected:	//é™æ€ä¿æŠ¤æ–¹æ³•
+    //æŠŠoutä¸vec1ç›¸åŠ ä¿å­˜åˆ°output
     static void addVector(vectorF2D& output,const vectorF2D& vec1);
 	template<typename...Args>
 	static void addVector(vectorF2D &out,const vectorF2D &vec1,const Args...args){
 		addVector(out,vec1);
 		addVector(out,args...);
 	}
-    //¶ÔÒ»¸öÌØÕ÷Í¼inputÓë¾í»ıºËkernelÖ´ĞĞ¾í»ı²Ù×÷ÔÙ¼ÓÆ«ÖÃbias,µÃµ½¶ÔÓ¦µÄÌØÕ÷Ó³ÉäÍ¼output
+    //å¯¹ä¸€ä¸ªç‰¹å¾å›¾inputä¸å·ç§¯æ ¸kernelæ‰§è¡Œå·ç§¯æ“ä½œå†åŠ åç½®bias,å¾—åˆ°å¯¹åº”çš„ç‰¹å¾æ˜ å°„å›¾output
     static void convoluteMap(vectorF2D& output,const vectorF2D& input,const kernelType& kernel,float _bias);
-    //¶ÔÒ»¸öÌØÕ÷Í¼inputÍ¨¹ımode·½Ê½ÏÂ²ÉÑùºóÔÙ¼ÓÆ«ÖÃbias,µÃµ½¶ÔÓ¦µÄÌØÕ÷ÌáÈ¡Í¼output
+    //å¯¹ä¸€ä¸ªç‰¹å¾å›¾inputé€šè¿‡modeæ–¹å¼ä¸‹é‡‡æ ·åå†åŠ åç½®bias,å¾—åˆ°å¯¹åº”çš„ç‰¹å¾æå–å›¾output
     static void subSampleMap(vectorF2D& output,const vectorF2D& input,float _bias,int mode = SSM_Mean);
-    //µÃµ½´Óvec[row][col]Î»ÖÃ¿ªÊ¼Óë¾í»ıºËkel¾í»ıºóµÄ½á¹û
+    //å¾—åˆ°ä»vec[row][col]ä½ç½®å¼€å§‹ä¸å·ç§¯æ ¸kelå·ç§¯åçš„ç»“æœ
     static float getConvoluteOut(const vectorF2D& vec, const kernelType& kernel, int row, int col)
     {
         uint i,j;
@@ -109,7 +115,7 @@ protected:	//¾²Ì¬±£»¤·½·¨
                 result += vec[i][j]*kernel[i-row][j-col];
         return result;
     }
-    //µÃµ½ÒÔvec[row][col]Î»ÖÃ¿ªÊ¼µÄÑÇ²ÉÑù½á¹û
+    //å¾—åˆ°ä»¥vec[row][col]ä½ç½®å¼€å§‹çš„äºšé‡‡æ ·ç»“æœ
     static float getSubSampleOut(const vectorF2D& vec, int row, int col,int mode = SSM_Mean)
     {
         uint i,j;
@@ -136,14 +142,14 @@ protected:	//¾²Ì¬±£»¤·½·¨
             result /= (subSampleSize*subSampleSize);
         return result;
     }
-	//½«Ò»¸ö¶àÍ¼¼ÓÆğÀ´µÄMapÍ¼Ã¿¸öµãÇósigmoid
+	//å°†ä¸€ä¸ªå¤šå›¾åŠ èµ·æ¥çš„Mapå›¾æ¯ä¸ªç‚¹æ±‚sigmoid
 	static void sigmoidMap(vectorF2D &vec)
 	{
 		for(uint i=0;i<vec.size();++i)
 			for(uint j=0;j<vec[i].size();++j)
 				vec[i][j] = (float)sigmoid(vec[i][j]);
 	}
-	//½«Ò»¸ö¶şÎ¬vectorÄÚÊı¾İÈ«²¿Çå¿Õ,Ã¿¸öÔªËØ¾ù±äÎª0
+	//å°†ä¸€ä¸ªäºŒç»´vectorå†…æ•°æ®å…¨éƒ¨æ¸…ç©º,æ¯ä¸ªå…ƒç´ å‡å˜ä¸º0
 	static void zeroVector(vectorF2D &vec)
 	{
 		for(uint i=0;i<vec.size();++i)
