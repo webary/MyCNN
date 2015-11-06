@@ -1,43 +1,50 @@
-/** ÖÇÄÜ×ÔÊÊÓ¦»úÆ÷Ñ§Ï°¾ØÕóÄ£°æ
-	×îºó±à¼­Ê±¼ä: 2015.4.2  21:00
-    ÎÄµµËµÃ÷: ¶ÔĞèÒª´¦ÀíµÄÊı¾İ¼¯½øĞĞÑİ»¯,ÒÔÕÒµ½ºÏÊÊµÄÂ·¾¶ÊµÏÖ»úÆ÷Ñ§Ï°
-    ±äÁ¿º¬Òå: mlDimension¡ª¡ª½øÈëÄ£°åµÄÊı¾İÎ¬Êı;numPerCol¡ª¡ªÄ£°åÃ¿ÁĞ¸öÊı,
-        ¸ù¾İDimensionµÄÔö´ó×Ô¶¯Ôö³¤;chromLength¡ª¡ª¸öÌå³¤¶È,¼´Â·¾¶³¤¶È;
-        popSize¡ª¡ªÍ¬Ê±½øĞĞÑİ»¯µÄÖÖÈº´óĞ¡£»MaxChromLength¡ª¡ª×î´ó¸öÌå³¤¶È;
-        MaxGen¡ª¡ª×î´óÑİ»¯´úÊı;Exp¡ª¡ªÎó²î¼ÆËãÖ¸Êı;dataLenÊı¾İ¼¯¸öÊı(³¤¶È);
-        bestChrom¡ª¡ª×îºÃ¸öÌå;peout¡ª¡ª¸öÌåÔÚÍ¨¹ıÂ·¾¶ºóµÄÊä³öÖµ;dataSet¡ª¡ªÊı¾İ¼¯
-    ±¾´Î¸üĞÂÄÚÈİ:
+/*
+ * Copyright (c) 2015
+ * é—»æ³¢, webary, HBUT 
+ * reference ï¼šhttps://github.com/webary/MyCNN/
+ *             http://www.cnblogs.com/webary/
+ */
+ 
+/** æ™ºèƒ½è‡ªé€‚åº”æœºå™¨å­¦ä¹ çŸ©é˜µæ¨¡ç‰ˆ
+	æœ€åç¼–è¾‘æ—¶é—´: 2015.4.2  21:00
+    æ–‡æ¡£è¯´æ˜: å¯¹éœ€è¦å¤„ç†çš„æ•°æ®é›†è¿›è¡Œæ¼”åŒ–,ä»¥æ‰¾åˆ°åˆé€‚çš„è·¯å¾„å®ç°æœºå™¨å­¦ä¹ 
+    å˜é‡å«ä¹‰: mlDimensionâ€”â€”è¿›å…¥æ¨¡æ¿çš„æ•°æ®ç»´æ•°;numPerColâ€”â€”æ¨¡æ¿æ¯åˆ—ä¸ªæ•°,
+        æ ¹æ®Dimensionçš„å¢å¤§è‡ªåŠ¨å¢é•¿;chromLengthâ€”â€”ä¸ªä½“é•¿åº¦,å³è·¯å¾„é•¿åº¦;
+        popSizeâ€”â€”åŒæ—¶è¿›è¡Œæ¼”åŒ–çš„ç§ç¾¤å¤§å°ï¼›MaxChromLengthâ€”â€”æœ€å¤§ä¸ªä½“é•¿åº¦;
+        MaxGenâ€”â€”æœ€å¤§æ¼”åŒ–ä»£æ•°;Expâ€”â€”è¯¯å·®è®¡ç®—æŒ‡æ•°;dataLenæ•°æ®é›†ä¸ªæ•°(é•¿åº¦);
+        bestChromâ€”â€”æœ€å¥½ä¸ªä½“;peoutâ€”â€”ä¸ªä½“åœ¨é€šè¿‡è·¯å¾„åçš„è¾“å‡ºå€¼;dataSetâ€”â€”æ•°æ®é›†
+    æœ€è¿‘æ›´æ–°å†…å®¹:
 		2015:
-		(8.24)½«±£´æÑµÁ·¼¯ºÍ²âÊÔ¼¯µÄ¾²Ì¬Êı×é¸ÄÎªvector
-		(7.26)½«×î´ó¸öÌå³¤¶ÈÔöÖÁ12,ÈÃ¾ØÕóÊä³ö4Î»0-1¶ş½øÖÆÊı±íÊ¾0-15
-		(3.31)¾ØÕó×ó±ß¼ÓÈëÉñ¾­ÍøÂç(Ò»²ãÉñ¾­Ôª),Ä£°åÄÚ²¿Êı¾İ·¶Î§ÓÉ0~255±äÎª0~1
+		(8.24)å°†ä¿å­˜è®­ç»ƒé›†å’Œæµ‹è¯•é›†çš„é™æ€æ•°ç»„æ”¹ä¸ºvector
+		(7.26)å°†æœ€å¤§ä¸ªä½“é•¿åº¦å¢è‡³12,è®©çŸ©é˜µè¾“å‡º4ä½0-1äºŒè¿›åˆ¶æ•°è¡¨ç¤º0-15
+		(3.31)çŸ©é˜µå·¦è¾¹åŠ å…¥ç¥ç»ç½‘ç»œ(ä¸€å±‚ç¥ç»å…ƒ),æ¨¡æ¿å†…éƒ¨æ•°æ®èŒƒå›´ç”±0~255å˜ä¸º0~1
 		2014:
-		(11.22)¹æ·¶ÃüÃû·¨Ôò:
+		(11.22)è§„èŒƒå‘½åæ³•åˆ™:
 			popsize=>popSize,individual=>Individual,chromlength=>chromLength,
 			fitnessvalue()=>fitnessValue(),findbest()=>findBest()
-		(10.28)ĞŞ¸Ä²¿·Ö±í´ïÊ½£¬½«Ò»Ğ©¹Ì¶¨²ÎÊı¸ÄÎª¿Éµ÷£¨ÈçOP_NUMS£©
-		(6.08)¸ÄÎªC++ÀàµÄĞÎÊ½·â×°
-		(5.14)¸ü¸ÄĞèÇó,ÒÔÊÊÓ¦²»Í¬Çé¿öÏÂµÄ»úÆ÷Ñ§Ï°
-		(4.10)´´½¨¶àÏß³Ì,ÔÚ³öÏÖÑ¯ÎÊ¶Ô»°¿òÊ±ºóÌ¨ÈÔÈ»Ñİ»¯
-		(3.24)½â¾öÑİ»¯ËÙ¶ÈÓĞÊ±¹ıÂı,ÎŞ·¨ÓÉÓÃ»§¾ö¶¨Í£Ö¹µÄÎÊÌâ
-    @Author: ÎÅ²¨(webary)
+		(10.28)ä¿®æ”¹éƒ¨åˆ†è¡¨è¾¾å¼ï¼Œå°†ä¸€äº›å›ºå®šå‚æ•°æ”¹ä¸ºå¯è°ƒï¼ˆå¦‚OP_NUMSï¼‰
+		(6.08)æ”¹ä¸ºC++ç±»çš„å½¢å¼å°è£…
+		(5.14)æ›´æ”¹éœ€æ±‚,ä»¥é€‚åº”ä¸åŒæƒ…å†µä¸‹çš„æœºå™¨å­¦ä¹ 
+		(4.10)åˆ›å»ºå¤šçº¿ç¨‹,åœ¨å‡ºç°è¯¢é—®å¯¹è¯æ¡†æ—¶åå°ä»ç„¶æ¼”åŒ–
+		(3.24)è§£å†³æ¼”åŒ–é€Ÿåº¦æœ‰æ—¶è¿‡æ…¢,æ— æ³•ç”±ç”¨æˆ·å†³å®šåœæ­¢çš„é—®é¢˜
+    @Author: é—»æ³¢(webary)
 **/
 #pragma once
 #ifndef  _ADAMACHINELEARNING_HPP_
 #define  _ADAMACHINELEARNING_HPP_
 
-#define _USE_MATH_DEFINES	//Ê¹ÓÃmath.hÀïµÄÒ»Ğ©³£Êı¶¨Òå
+#define _USE_MATH_DEFINES	//ä½¿ç”¨math.hé‡Œçš„ä¸€äº›å¸¸æ•°å®šä¹‰
 #include <iostream>
-#include <string>		//getline()º¯Êı
-#include <fstream>		//getline()º¯Êı
+#include <string>		//getline()å‡½æ•°
+#include <fstream>		//getline()å‡½æ•°
 #include <iomanip>		//setw(n)
 #include <vector>
-#include <cstdlib>		//rand()º¯Êı
-#include <cmath>		//ÊıÑ§º¯Êı
+#include <cstdlib>		//rand()å‡½æ•°
+#include <cmath>		//æ•°å­¦å‡½æ•°
 #include <ctime>
 #include <cstring>
 #include <windows.h>
-#include <process.h>	//_beginthread()º¯Êı
+#include <process.h>	//_beginthread()å‡½æ•°
 #include "math_util.hpp"
 #include "Win_Util.h"
 using namespace std;
@@ -54,74 +61,74 @@ typedef vector<float> vectorF;
 class Ada_ML : virtual public Math_Util {
 protected:
 	int mlDimension, numPerCol, col, chromLength;
-	const static int OP_NUMS = 8, OP_NUMSx3 = 3*OP_NUMS;	//Ä£°æ²Ù×÷·û¸öÊı
-	const static int MaxDimension = 300;//¶¨Òå×î´óÄÜ½ÓÊÜµÄÊı¾İÊäÈëÎ¬Êı
-	const static int MaxCol = 15;		//¶¨Òå×î´óÁĞÊı
-	const static int popSize = 3;		//ÖÖÈº¹æÄ£
+	const static int OP_NUMS = 8, OP_NUMSx3 = 3*OP_NUMS;	//æ¨¡ç‰ˆæ“ä½œç¬¦ä¸ªæ•°
+	const static int MaxDimension = 300;//å®šä¹‰æœ€å¤§èƒ½æ¥å—çš„æ•°æ®è¾“å…¥ç»´æ•°
+	const static int MaxCol = 15;		//å®šä¹‰æœ€å¤§åˆ—æ•°
+	const static int popSize = 3;		//ç§ç¾¤è§„æ¨¡
 	const static int MaxChromLength = (MaxDimension+OP_NUMSx3-1)/OP_NUMSx3*OP_NUMSx3*MaxCol+3*10;
-	const static int MaxGen = 100000000;//Ñİ»¯Ñ§Ï°µÄ×î´óÑİ»¯´úÊı
-	const static int Exp = 2;			//¼ÆËãÖ¸Êı
-	const static int Max_MatInput = (MaxDimension+OP_NUMSx3-1)/OP_NUMSx3 * OP_NUMS;//¾ØÕóÊäÈë×î´óÊı
-	int outPutModels;	//Êä³öÄ£¿éÊı
-	typedef int ModelMatrixType;		//Ä£°å¾ØÕóÖĞÖµµÄÀàĞÍ
-	ModelMatrixType PE[Max_MatInput][MaxCol];//Ä£°å¾ØÕóµÄÖµ
-	int best,bestChrom[MaxChromLength];	//×îºÃ¸öÌåµÄË÷Òı,×îºÃ¸öÌå
-	int dataLen, **PEout;		//Êı¾İ¼¯¸öÊı,×Ü¸öÊı,Ä£°åÊä³öÊı×é
+	const static int MaxGen = 100000000;//æ¼”åŒ–å­¦ä¹ çš„æœ€å¤§æ¼”åŒ–ä»£æ•°
+	const static int Exp = 2;			//è®¡ç®—æŒ‡æ•°
+	const static int Max_MatInput = (MaxDimension+OP_NUMSx3-1)/OP_NUMSx3 * OP_NUMS;//çŸ©é˜µè¾“å…¥æœ€å¤§æ•°
+	int outPutModels;	//è¾“å‡ºæ¨¡å—æ•°
+	typedef int ModelMatrixType;		//æ¨¡æ¿çŸ©é˜µä¸­å€¼çš„ç±»å‹
+	ModelMatrixType PE[Max_MatInput][MaxCol];//æ¨¡æ¿çŸ©é˜µçš„å€¼
+	int best,bestChrom[MaxChromLength];	//æœ€å¥½ä¸ªä½“çš„ç´¢å¼•,æœ€å¥½ä¸ªä½“
+	int dataLen, **PEout;		//æ•°æ®é›†ä¸ªæ•°,æ€»ä¸ªæ•°,æ¨¡æ¿è¾“å‡ºæ•°ç»„
 
 	typedef struct {
-		vectorF data;			//ÊäÈëÊı¾İ²¿·Ö
-		int tag;				//ÊäÈë±êÇ©(1 or 0 or ...)
-	} S_Input;					//ÊäÈëÀàĞÍ
-	vector<S_Input> matTrain;	//ÑµÁ·¼¯-°üº¬Èô¸ÉÑµÁ·Êı¾İºÍ±êÇ©ĞÅÏ¢
-	vector<S_Input> matTest;	//²âÊÔ¼¯-°üº¬Èô¸ÉÑµÁ·Êı¾İ(Ò²¿É°üº¬±êÇ©ĞÅÏ¢)
-	//typedef float DataType;	//Ä£°æÄÜ¹»½ÓÊÜµÄÊı¾İÀàĞÍ
-	//DataType dataSet[5000][MaxDimension+1], testSet[5000][MaxDimension];//Êı¾İ¼¯£¬²âÊÔ¼¯
-	float F,CR;	//±äÒìÏµÊı,½»²æÒò×Ó
-	float wait,permitError;//µÈ´ıÊ±¼ä,ÔÊĞíÎó²î
+		vectorF data;			//è¾“å…¥æ•°æ®éƒ¨åˆ†
+		int tag;				//è¾“å…¥æ ‡ç­¾(1 or 0 or ...)
+	} S_Input;					//è¾“å…¥ç±»å‹
+	vector<S_Input> matTrain;	//è®­ç»ƒé›†-åŒ…å«è‹¥å¹²è®­ç»ƒæ•°æ®å’Œæ ‡ç­¾ä¿¡æ¯
+	vector<S_Input> matTest;	//æµ‹è¯•é›†-åŒ…å«è‹¥å¹²è®­ç»ƒæ•°æ®(ä¹Ÿå¯åŒ…å«æ ‡ç­¾ä¿¡æ¯)
+	//typedef float DataType;	//æ¨¡ç‰ˆèƒ½å¤Ÿæ¥å—çš„æ•°æ®ç±»å‹
+	//DataType dataSet[5000][MaxDimension+1], testSet[5000][MaxDimension];//æ•°æ®é›†ï¼Œæµ‹è¯•é›†
+	float F,CR;	//å˜å¼‚ç³»æ•°,äº¤å‰å› å­
+	float wait,permitError;//ç­‰å¾…æ—¶é—´,å…è®¸è¯¯å·®
 	typedef struct _Individual {
-		unsigned char chrom[MaxChromLength];	//×¢Òâ´Ë´¦¶¨ÒåÎªcharÀàĞÍµÄ±ØÒªĞÔ(ÄÚ´æÕ¼ÓÃ¸üĞ¡)
-		float ww[Max_MatInput][MaxDimension+1];	//µ±Ç°ÒÑÓÃ²¿·ÖÎª[0~mlDimension-1][0~mlDimension]
+		unsigned char chrom[MaxChromLength];	//æ³¨æ„æ­¤å¤„å®šä¹‰ä¸ºcharç±»å‹çš„å¿…è¦æ€§(å†…å­˜å ç”¨æ›´å°)
+		float ww[Max_MatInput][MaxDimension+1];	//å½“å‰å·²ç”¨éƒ¨åˆ†ä¸º[0~mlDimension-1][0~mlDimension]
 		bool  wwOut[Max_MatInput];
 		double fitness;
 	} Individual;
 	Individual pop[popSize], cBest;
-	int popRand[3];	//ÓÃÓÚ±äÒìÇ°²úÉú¼¸¸öËæ»ú¸öÌå
-	//¼ÇÂ¼ÊÇ·ñ±£´æËùÓĞ¸öÌåµÄÎó²î£¬±£´æµ±Ç°×îºÃÂ·¾¶£¬±£´æ×îºÃÂ·¾¶£¬ÊÇ·ñ±ØĞëÏàµÈ
+	int popRand[3];	//ç”¨äºå˜å¼‚å‰äº§ç”Ÿå‡ ä¸ªéšæœºä¸ªä½“
+	//è®°å½•æ˜¯å¦ä¿å­˜æ‰€æœ‰ä¸ªä½“çš„è¯¯å·®ï¼Œä¿å­˜å½“å‰æœ€å¥½è·¯å¾„ï¼Œä¿å­˜æœ€å¥½è·¯å¾„ï¼Œæ˜¯å¦å¿…é¡»ç›¸ç­‰
 	bool b_saveTmp, b_savePre, b_saveBest, b_mustEqual;
 #ifdef __AFXWIN_H__
-	CStatusBar *pS;		//MFCÖ÷´°¿ÚµÄ×´Ì¬À¸Ö¸Õë
+	CStatusBar *pS;		//MFCä¸»çª—å£çš„çŠ¶æ€æ æŒ‡é’ˆ
 #endif
 
 public:
 	Ada_ML(int MLDimension,bool _mustEqual=1,int _col=6);
 	virtual ~Ada_ML();
-	//¿ªÊ¼»úÆ÷Ñ§Ï°
+	//å¼€å§‹æœºå™¨å­¦ä¹ 
 	virtual void startLearn(int len=0,double permit_error=8,cchar *readFromFile=0,bool b_saveData=false);
 #ifdef __AFXWIN_H__
-	//ÔÚMFCÖĞĞŞ¸Ä×´Ì¬À¸£¬ÏÔÊ¾ÊµÊ±Ñ§Ï°½ø¶È
+	//åœ¨MFCä¸­ä¿®æ”¹çŠ¶æ€æ ï¼Œæ˜¾ç¤ºå®æ—¶å­¦ä¹ è¿›åº¦
 	virtual void startLearn(int len=0,CStatusBar *p,double permit_error=8,cchar* readFromFile=0,bool b_saveData=false);
 #endif
-	//´ÓÎÄ¼şÔØÈëÑµÁ·¼¯
+	//ä»æ–‡ä»¶è½½å…¥è®­ç»ƒé›†
 	int loadTrainSet(const string &fileName, int size = -1);
-	//´ÓÎÄ¼şÔØÈë²âÊÔ¼¯
+	//ä»æ–‡ä»¶è½½å…¥æµ‹è¯•é›†
 	int loadTestSet(const string &fileName, int size=-1, bool haveTag=0);
-	//µÃµ½²âÊÔ½á¹û£¬±£´æµ½int testOut[]Êı×éÖĞ
+	//å¾—åˆ°æµ‹è¯•ç»“æœï¼Œä¿å­˜åˆ°int testOut[]æ•°ç»„ä¸­
 	double getTestOut(const string &fileName, int len = -1,int print01Ratio = -1);
-	//·µ»ØÖ¸¶¨Êı¾İdataRowÓÉÌØ¶¨¸öÌåPEÄ£°åºËµÄÊä³ö
+	//è¿”å›æŒ‡å®šæ•°æ®dataRowç”±ç‰¹å®šä¸ªä½“PEæ¨¡æ¿æ ¸çš„è¾“å‡º
 	int getPEOut(Individual& indiv, const vectorF &dataRow);
-	//·µ»ØÖ¸¶¨Êı¾İÓÉ×îºÃ¸öÌåPEÄ£°åºËµÃµ½µÄÊä³ö
+	//è¿”å›æŒ‡å®šæ•°æ®ç”±æœ€å¥½ä¸ªä½“PEæ¨¡æ¿æ ¸å¾—åˆ°çš„è¾“å‡º
 	int getBestPEOut(const vectorF &dataRow);
-	//·µ»ØÓÉ¸öÌåindivµÄÉñ¾­ÍøÂçÊä³ö½øÈë¾ØÕóºóµÄÊä³ö
+	//è¿”å›ç”±ä¸ªä½“indivçš„ç¥ç»ç½‘ç»œè¾“å‡ºè¿›å…¥çŸ©é˜µåçš„è¾“å‡º
 	int getMatOut(const Individual& indiv);
-	//·µ»Ø×îºÃ¸öÌå
+	//è¿”å›æœ€å¥½ä¸ªä½“
 	Individual& getBest() {
 		return cBest;
 	}
-	//·µ»ØPEÄ£°åºËÁĞÊı
+	//è¿”å›PEæ¨¡æ¿æ ¸åˆ—æ•°
 	const int& getCol()const {
 		return col;
 	}
-	//·µ»Ø¸öÌå³¤¶È
+	//è¿”å›ä¸ªä½“é•¿åº¦
 	const int& getChromlen()const {
 		return chromLength;
 	}
@@ -131,48 +138,48 @@ public:
 	int getTestLen()const {
 		return matTest.size();
 	}
-	//ÉèÖÃ»úÆ÷Ñ§Ï°µÄ²ÎÊı
+	//è®¾ç½®æœºå™¨å­¦ä¹ çš„å‚æ•°
 	void setML(int MLDimension,bool _mustEqual=1,int _col=8);
-	//ÉèÖÃÑ¯ÎÊµÈ´ıÊ±¼äºÍÄ£°åºËµÄÁĞÊı
+	//è®¾ç½®è¯¢é—®ç­‰å¾…æ—¶é—´å’Œæ¨¡æ¿æ ¸çš„åˆ—æ•°
 	void setWaitCol(double wt,int _col=0);
-	//ÉèÖÃÊä³öÄ£¿éÊı
+	//è®¾ç½®è¾“å‡ºæ¨¡å—æ•°
 	void setOutputModels(int outModels);
-	//ÉèÖÃ²¿·ÖÊı¾İÊÇ·ñ±£´æ
+	//è®¾ç½®éƒ¨åˆ†æ•°æ®æ˜¯å¦ä¿å­˜
 	void setSave(bool saveBest = 0,bool saveTmp = 0,bool savePre = 0);
-	//±£´æÄ³¸ö¸öÌå
+	//ä¿å­˜æŸä¸ªä¸ªä½“
 	void savePopMatrix(const char* file,int index,ios::openmode mode=ios::out);
 protected:
-	//´ÓÎÄ¼şÔØÈëÊäÈëÊı¾İ
+	//ä»æ–‡ä»¶è½½å…¥è¾“å…¥æ•°æ®
 	int loadInputData(const string &fileName, int size, vector<S_Input> &dataVec, bool haveTag);
-	//´ÓÎÄ¼ş°ÑÊı¾İ±£´æµ½Êı×é
+	//ä»æ–‡ä»¶æŠŠæ•°æ®ä¿å­˜åˆ°æ•°ç»„
 	int  loadBest(cchar *filePath);
-	//³õÊ¼»¯»úÆ÷Ñ§Ï°Ä£¿é
+	//åˆå§‹åŒ–æœºå™¨å­¦ä¹ æ¨¡å—
 	void init(cchar *readFromFile = 0,bool b_saveData = false);
-	//¶ÔX,Y½øĞĞÄ£°åºËÖ¸¶¨²Ù×÷½øĞĞÔËËã
+	//å¯¹X,Yè¿›è¡Œæ¨¡æ¿æ ¸æŒ‡å®šæ“ä½œè¿›è¡Œè¿ç®—
 	int  operationOnXY(int x,int y,int op);
-	//¼ÆËãµÚii¸ö¸öÌåµÄÊÊÓ¦Öµ
+	//è®¡ç®—ç¬¬iiä¸ªä¸ªä½“çš„é€‚åº”å€¼
 	void fitnessValue(Individual& indiv, int ii);
-	//ÕÒµ½×îºÃ¸öÌå
+	//æ‰¾åˆ°æœ€å¥½ä¸ªä½“
 	int  findBest();
-	//¸ßË¹ºÍ¶àµã·½Ê½±äÒì¸öÌåµÄ¾ØÕó²¿·ÖºÍÉñ¾­ÍøÂç²¿·Ö
+	//é«˜æ–¯å’Œå¤šç‚¹æ–¹å¼å˜å¼‚ä¸ªä½“çš„çŸ©é˜µéƒ¨åˆ†å’Œç¥ç»ç½‘ç»œéƒ¨åˆ†
 	void mutateMatrixNNByGauss(Individual& tmp);
-	//ÔÚ±äÒìÇ°²úÉú¼¸¸ö²»Í¬ÓÚiiËæ»ú¸öÌåÓÃÓÚ½»²æ²½Öè
+	//åœ¨å˜å¼‚å‰äº§ç”Ÿå‡ ä¸ªä¸åŒäºiiéšæœºä¸ªä½“ç”¨äºäº¤å‰æ­¥éª¤
 	void generatePopRand(int ii);
-	//²î·Ö·½Ê½±äÒì¸öÌåµÄ¾ØÕó²¿·ÖºÍÉñ¾­ÍøÂç²¿·Ö
+	//å·®åˆ†æ–¹å¼å˜å¼‚ä¸ªä½“çš„çŸ©é˜µéƒ¨åˆ†å’Œç¥ç»ç½‘ç»œéƒ¨åˆ†
 	void mutateMatrixNNByDE(Individual& tmp,int ii,int *_popRand=0);
-	//¸öÌå±äÒì²¢Ñ¡ÔñĞÂÒ»´ú¸öÌå,ÒªÇóÖÖÈº×îÉÙĞèÒª3¸ö¸öÌå
+	//ä¸ªä½“å˜å¼‚å¹¶é€‰æ‹©æ–°ä¸€ä»£ä¸ªä½“,è¦æ±‚ç§ç¾¤æœ€å°‘éœ€è¦3ä¸ªä¸ªä½“
 	void mutate(int ii,int *_popRand=0);
-	//±äÒìºó´ÓiiºÅ¸öÌåÓëindivÖĞÑ¡ÔñÓÅÊ¤¸öÌå½øÈëÏÂÒ»´ú
+	//å˜å¼‚åä»iiå·ä¸ªä½“ä¸indivä¸­é€‰æ‹©ä¼˜èƒœä¸ªä½“è¿›å…¥ä¸‹ä¸€ä»£
 	void selectPop(Individual& indiv,int ii);
-	//¼ÆËã³öÉñ¾­ÍøÂçµÚii¸ö¸öÌå¶ÔµÚrow×éÊı¾İµÄÊä³ö
+	//è®¡ç®—å‡ºç¥ç»ç½‘ç»œç¬¬iiä¸ªä¸ªä½“å¯¹ç¬¬rowç»„æ•°æ®çš„è¾“å‡º
 	void getNNOut(Individual& indiv,const vectorF &dataRow);
-	//½«¾ØÕóÖĞ¸öÌåÄ³Ò»Î¬±äÎªËæ»ú·¶Î§ÄÚµÄÖµ
+	//å°†çŸ©é˜µä¸­ä¸ªä½“æŸä¸€ç»´å˜ä¸ºéšæœºèŒƒå›´å†…çš„å€¼
 	int getChromRandValue(int i);
 };
 
 #ifdef __cplusplus
 extern "C" {
-//´´½¨¹¤×÷ÕßÏß³Ì½øĞĞºóÌ¨¼ÆËãºÍÅĞ¶Ï
+//åˆ›å»ºå·¥ä½œè€…çº¿ç¨‹è¿›è¡Œåå°è®¡ç®—å’Œåˆ¤æ–­
 RETURN_TYPE waiting(void* tt);
 } 
 #endif
