@@ -96,11 +96,12 @@ protected:
 protected:	//静态保护方法
     //把out与vec1相加保存到output
     static void addVector(vectorF2D& output,const vectorF2D& vec1);
+    //变参模板函数，需要C++11特性支持
 	template<typename...Args>
-	static void addVector(vectorF2D &out,const vectorF2D &vec1,const Args...args){
-		addVector(out,vec1);
-		addVector(out,args...);
-	}
+    static void addVector(vectorF2D &out,const vectorF2D &vec1,const Args...args){
+        addVector(out,vec1);
+        addVector(out,args...);
+    }
     //对一个特征图input与卷积核kernel执行卷积操作再加偏置bias,得到对应的特征映射图output
     static void convoluteMap(vectorF2D& output,const vectorF2D& input,const kernelType& kernel,float _bias);
     //对一个特征图input通过mode方式下采样后再加偏置bias,得到对应的特征提取图output
